@@ -12,13 +12,13 @@ import mul.camp.a.service.MemberService;
 @RestController
 public class MemberController {
 	@Autowired
-	MemberService sv;
+	MemberService msv;
 	
 	@RequestMapping(value = "/getId", method = {RequestMethod.GET, RequestMethod.POST})
 	public String getId(MemberDto dto) {
 		System.out.println("MemberController getId" + new Date());
 		
-		boolean b = sv.getId(dto);
+		boolean b = msv.getId(dto);
 		if(b) {
 			return "NO";
 		}
@@ -28,17 +28,19 @@ public class MemberController {
 	public String addMember(MemberDto dto) {
 		System.out.println("MemberController addMember" + new Date());
 		
-		boolean b = sv.addMember(dto);
+		boolean b = msv.addMember(dto);
 		if(b) {
 			return "YES";
 		}
 		return "NO";
 	}
 	@RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
-	public MemberDto login(MemberDto dto) {
+	public MemberDto login(MemberDto dto, HttpServletRequest req) {
 		System.out.println("MemberController login");
 		
-		MemberDto mem = sv.login(dto);
+		MemberDto mem = msv.login(dto);
+		// sessionStorage 대신 이렇게도 사용가능
+//		req.getSession().setAttribute("login", mem);
 		return mem;
 	}	
 }

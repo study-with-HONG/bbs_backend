@@ -6,7 +6,8 @@ package mul.camp.a.dto;
 	    NAME VARCHAR2(50) NOT NULL,
 	    EMAIL VARCHAR2(100) NOT NULL,
 	    AUTH NUMBER(8) NOT NULL
-	);*/
+	);
+	DELETE FROM TESTMEMBER WHERE ~~~;*/
 public class MemberDto {
 	private String id;
 	private String pwd;
