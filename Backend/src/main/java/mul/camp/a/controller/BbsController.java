@@ -16,10 +16,21 @@ public class BbsController {
 	BbsService bsv;
 	
 	@RequestMapping(value = "/getBbsList", method = {RequestMethod.GET, RequestMethod.POST})
-	public List<BbsDto> getBbsList(MemberDto dto) {
+	public List<BbsDto> getBbsList() {
 		System.out.println("BbsController getBbsList" + new Date());
 		
 		List<BbsDto> list= bsv.getBbsList();
 		return list;
+	}
+	@RequestMapping(value = "/bbsWrite", method = {RequestMethod.GET, RequestMethod.POST})
+	public String bbsWrite(BbsDto dto) {
+		System.out.println("BbsController bbsWrite" + new Date());
+		
+		boolean b = bsv.bbsWrite(dto);
+		
+		if(b) {
+			return "YES";
+		}
+		return "NO";
 	}
 }

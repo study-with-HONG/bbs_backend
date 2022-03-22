@@ -16,4 +16,9 @@ public class BbsService {
 	public List<BbsDto> getBbsList(){
 		return dao.getBbsList();
 	}
+	public boolean bbsWrite(BbsDto dto){
+		int n = dao.bbsWrite(dto);
+		
+		return n>0? true:false;
+	}
 }

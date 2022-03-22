@@ -9,4 +9,5 @@ import mul.camp.a.dto.BbsDto;
 @Repository
 public interface BbsDao {
 	public List<BbsDto> getBbsList();
+	public int bbsWrite(BbsDto dto);
 }
