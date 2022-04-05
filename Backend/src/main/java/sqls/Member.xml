@@ -3,5 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="mul.camp.a.dao.MemberDao">
+<mapper namespace="mul.camp.a.dao.MemberDAO">
+	<!-- 아이디 중복 확인 -->
+	<select id="idcheck" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT NVL(COUNT(*), 0) FROM TESTMEMBER
+		WHERE ID=#{id}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="register" parameterType="mul.camp.a.dto.MemberDTO">
+		INSERT INTO TESTMEMBER(ID, PWD, NAME, EMAIL, AUTH)
+		VALUES(#{id}, #{pwd}, #{name}, #{email}, 3)
+	</insert>
 </mapper>

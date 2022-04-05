@@ -8,15 +8,15 @@ package mul.camp.a.dto;
 	    AUTH NUMBER(8) NOT NULL
 	);
 	DELETE FROM TESTMEMBER WHERE ~~~;*/
-public class MemberDto {
+public class MemberDTO {
 	private String id;
 	private String pwd;
 	private String name;
 	private String email;
 	private int auth;
 	
-	public MemberDto() {}
-	public MemberDto(String id, String pwd, String name, String email, int auth) {
+	public MemberDTO() {}
+	public MemberDTO(String id, String pwd, String name, String email, int auth) {
 		super();
 		this.id = id;
 		this.pwd = pwd;
