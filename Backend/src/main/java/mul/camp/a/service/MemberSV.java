@@ -23,4 +23,9 @@ public class MemberSV {
 		int i = dao.register(dto);
 		return i>0?true:false;
 	}
+	
+	// 로그인
+	public MemberDTO login(MemberDTO dto) {
+		return dao.login(dto);
+	}
 }
