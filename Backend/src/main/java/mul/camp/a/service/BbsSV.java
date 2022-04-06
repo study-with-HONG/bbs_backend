@@ -34,4 +34,10 @@ public class BbsSV {
 		int i = dao.bbsdelete(seq); // update된 행 수만큼 반환
 		return i>0?true:false;
 	}
+	
+	// 게시글 수정
+	public boolean bbsupdate(BbsDTO dto) {
+		int i = dao.bbsupdate(dto);
+		return i>0?true:false;
+	}
 }

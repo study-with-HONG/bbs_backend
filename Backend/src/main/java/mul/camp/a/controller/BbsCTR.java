@@ -48,7 +48,16 @@ public class BbsCTR {
 		boolean b = sv.bbsdelete(seq);
 		
 		if(b) return "yes";
+		return "no";
+	}
+	
+	@RequestMapping(value = "/bbsupdate", method = {RequestMethod.GET, RequestMethod.POST})
+	public String bbsupdate(BbsDTO dto) {
+		System.out.println("BbsCTR bbsupdate 게시글 수정" + new Date());
 		
+		boolean b = sv.bbsupdate(dto);
+		
+		if(b) return "yes";
 		return "no";
 	}
 }

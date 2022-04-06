@@ -12,4 +12,5 @@ public interface BbsDAO {
 	public int bbswrite(BbsDTO dto);	// 게시글 작성
 	public BbsDTO bbsdetail(int seq);	// 게시글 디테일
 	public int bbsdelete(int seq);		// 게시글 삭제
+	public int bbsupdate(BbsDTO dto);	// 게시글 수정
 }

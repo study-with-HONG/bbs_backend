@@ -29,4 +29,10 @@
 		UPDATE TESTBBS SET DEL = 1
 		WHERE SEQ=#{seq}
 	</update>
+	
+	<!-- 게시글 수정 -->
+	<update id="bbsupdate" parameterType="mul.camp.a.dto.BbsDTO">
+		UPDATE TESTBBS SET TITLE=#{title}, CONTENT=#{content}
+		WHERE SEQ=#{seq}
+	</update>
 </mapper>
