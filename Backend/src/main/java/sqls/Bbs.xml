@@ -35,4 +35,93 @@
 		UPDATE TESTBBS SET TITLE=#{title}, CONTENT=#{content}
 		WHERE SEQ=#{seq}
 	</update>
+	
+	<!-- 답글 작성 -->
+	<insert id="replywrite" parameterType="mul.camp.a.dto.BbsDTO">
+		INSERT INTO TESTBBS(SEQ, ID, TITLE, CONTENT, WDATE, REF, STEP, DEPTH, DEL, READCOUNT)
+		VALUES(SEQ_TESTBBS.NEXTVAL, #{id}, #{title}, #{content}, SYSDATE,
+			  (SELECT REF FROM TESTBBS WHERE SEQ=#{seq}),
+			  (SELECT STEP FROM TESTBBS WHERE SEQ=#{seq}) + 1,
+			  (SELECT DEPTH FROM TESTBBS WHERE SEQ=#{seq}) + 1, 0, 0)
+	</insert>
+	
+	<!-- 답글 들여쓰기 -->
+	<update id="replyindent" parameterType="mul.camp.a.dto.BbsDTO">
+		UPDATE TESTBBS SET STEP=STEP + 1
+		WHERE REF=(SELECT REF FROM TESTBBS WHERE SEQ=#{seq})
+			  AND STEP>(SELECT STEP FROM TESTBBS WHERE SEQ=#{seq})
+	</update>
+	
+	
+	
+	
+	
+	
+<!-- 	
+<update id="readcount" parameterType="java.lang.Integer">
+	UPDATE BBS
+	SET READCOUNT=READCOUNT+1
+	WHERE SEQ=#{seq}
+</update>
+
+<select id="getBbsListSearch" parameterType="mul.camp.a.dto.BbsParam" 
+					resultType="mul.camp.a.dto.BbsDto">
+	SELECT SEQ, ID, REF, STEP, DEPTH, TITLE, CONTENT, WDATE, DEL, READCOUNT
+	FROM BBS
+	WHERE 1=1
+		<if test="choice != null and choice != '' and search != null and search != '' ">
+			<if test="choice == 'title'">
+				 AND TITLE LIKE '%'||#{search}||'%'
+			</if>
+			<if test="choice == 'content'">
+				 AND CONTENT LIKE '%'||#{search}||'%'
+			</if>
+			<if test="choice == 'writer'">
+				 AND ID=#{search}
+			</if>
+		</if> 
+	ORDER BY REF DESC, STEP ASC
+</select>
+
+<select id="getBbsListSearchPage" parameterType="mul.camp.a.dto.BbsParam" 
+					resultType="mul.camp.a.dto.BbsDto">					
+	SELECT SEQ, ID, REF, STEP, DEPTH, TITLE, CONTENT, WDATE, DEL, READCOUNT
+	FROM
+		(SELECT ROW_NUMBER()OVER(ORDER BY REF DESC, STEP ASC) AS RNUM, 
+			SEQ, ID, REF, STEP, DEPTH, TITLE, CONTENT, WDATE, DEL, READCOUNT
+		FROM BBS
+		WHERE 1=1
+			<if test="choice != null and choice != '' and search != null and search != '' ">
+				<if test="choice == 'title'">
+					 AND TITLE LIKE '%'||#{search}||'%'
+				</if>
+				<if test="choice == 'content'">
+					 AND CONTENT LIKE '%'||#{search}||'%'
+				</if>
+				<if test="choice == 'writer'">
+					 AND ID=#{search}
+				</if>
+			</if> 
+		ORDER BY REF DESC, STEP ASC)
+	WHERE RNUM BETWEEN ${start} AND ${end}
+</select>
+
+글의 총수
+<select id="getBbsCount" parameterType="mul.camp.a.dto.BbsParam" resultType="java.lang.Integer">
+	SELECT NVL(COUNT(*), 0) AS CNT
+	FROM BBS
+	WHERE 1=1
+		<if test="choice != null and choice != '' and search != null and search != '' ">
+			<if test="choice == 'title'">
+				 AND TITLE LIKE '%'||#{search}||'%'
+			</if>
+			<if test="choice == 'content'">
+				 AND CONTENT LIKE '%'||#{search}||'%'
+			</if>
+			<if test="choice == 'writer'">
+				 AND ID=#{search}
+			</if>
+		</if> 
+</select>
+-->
 </mapper>
