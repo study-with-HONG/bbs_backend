@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="mul.camp.a.dao.BbsDAO">
+	<!-- 게시글 목록 불러오기 -->
+	<select id="getlist" resultType="mul.camp.a.dto.BbsDTO">
+		SELECT * FROM TESTBBS
+		WHERE DEL != 1
+		ORDER BY REF DESC, STEP ASC
+	</select>
+	
+	<!-- 게시글 작성 -->
+	<insert id="bbswrite" parameterType="mul.camp.a.dto.BbsDTO">
+		INSERT INTO TESTBBS(SEQ, ID, TITLE, CONTENT, WDATE, REF, STEP, DEPTH, DEL, READCOUNT)
+		VALUES(SEQ_TESTBBS.NEXTVAL, #{id}, #{title}, #{content}, SYSDATE,
+			   (SELECT NVL(MAX(REF)+1, 0)FROM TESTBBS), 0, 0, 0, 0)
+	</insert>
+	
+	<!-- 게시글 디테일 -->
+	<select id="bbsdetail" parameterType="java.lang.Integer" resultType="mul.camp.a.dto.BbsDTO">
+		SELECT * FROM TESTBBS
+		WHERE SEQ=#{seq}
+	</select>
+	
+	<!-- 게시글 삭제 -->
+	<update id="bbsdelete" parameterType="java.lang.Integer">
+		UPDATE TESTBBS SET DEL = 1
+		WHERE SEQ=#{seq}
+	</update>
+</mapper>
