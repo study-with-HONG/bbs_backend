@@ -20,7 +20,7 @@ public class MemberSV {
 	
 	// 회원가입
 	public boolean register(MemberDTO dto) {
-		int i = dao.register(dto);
+		int i = dao.register(dto); // insert되면 1 반환
 		return i>0?true:false;
 	}
 	
